@@ -6,7 +6,7 @@
 #    By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 08:54:44 by ubegona           #+#    #+#              #
-#    Updated: 2022/09/23 12:24:22 by ubegona          ###   ########.fr        #
+#    Updated: 2022/09/23 13:05:22 by ubegona          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(GCC) $(OBJS)
 	
+.SILENT:
+
 %.o: %.c
 	$(GCCS) $<	
 #$< gure leheneng dependentziaren izena da, kasu honetan %.c
