@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 08:47:46 by ubegona           #+#    #+#             */
-/*   Updated: 2022/09/28 11:04:05 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/09/28 11:26:44 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,29 @@ char	*memory_allocate(char *str, int h)
 	i++;
 	return (str);
 }
-char	*newline(char *buff, char *str, int fd, int h, int i)
+int	newline(char *buff, char *str, int fd, int h, int i)
 {
 	int j;
 	
-	if (buff[i] != '\n')
+	i = 0;
+	while (buff[i] != '\n' && buff[i])
 	{
-		j = read(fd, buff, BUFFER_SIZE);
-		
-		if (j <= 0)
+		str[h] = buff[i];
+		i++;
+		h++;
+		if (!buff[i])
 		{
-			printf("*entra aki o k*** j ==|%d|\n", j);
-			return (NULL);
+			j = read(fd, buff, BUFFER_SIZE);
+			if (j <= 0)
+				return (- 1);
+			str = memory_allocate(str, h);
+			buff[BUFFER_SIZE] = '\0';
+			i = 0;
 		}
-			
-		str = memory_allocate(str, h);
-		buff[BUFFER_SIZE] = '\0';
-		
 	}
-	return (str);
+	str[h] = buff[i];
+	str[h + 1] = '\0';
+	return (i);
 }
 char	*save_str(char *buff, char *str, int fd)
 {
@@ -89,7 +93,7 @@ char	*save_str(char *buff, char *str, int fd)
 		i++;
 		h++;
 	}
-	if (buff[i] != '\n')
+	if (buff[i] != '\n') cd 
 	{
 		j = read(fd, buff, BUFFER_SIZE);
 		if (j <= 0)
@@ -98,8 +102,7 @@ char	*save_str(char *buff, char *str, int fd)
 		buff[BUFFER_SIZE] = '\0';
 		
 	}
-	// str = newline(buff, str, fd, h, i);
-	i = 0;
+	i=0;
 	while (buff[i] != '\n' && buff[i])
 	{
 		str[h] = buff[i];
@@ -107,7 +110,7 @@ char	*save_str(char *buff, char *str, int fd)
 		h++;
 		if (!buff[i])
 		{
-			j = read(fd, buff, BUFFER_SIZE);
+			read(fd, buff, BUFFER_SIZE);
 			if (j <= 0)
 				return (NULL);
 			str = memory_allocate(str, h);
@@ -117,6 +120,10 @@ char	*save_str(char *buff, char *str, int fd)
 	}
 	str[h] = buff[i];
 	str[h + 1] = '\0';
+	// i = newline(buff, str, fd, h, i);
+	// printf("%s\n",str);
+	// if (i == -1)
+	// 	return(NULL);
 	i++;
 	return (str);
 }
