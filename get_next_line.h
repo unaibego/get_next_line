@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:12:11 by ubegona           #+#    #+#             */
-/*   Updated: 2022/09/23 09:31:34 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/09/27 08:33:18 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "unistd.h"
 # include "stdlib.h"
 
-char	*get_next_line(int fd);
+char	*get_next_linea(int fd);
 int		count_lines(int fd);
 
 #endif
