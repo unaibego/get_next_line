@@ -6,15 +6,15 @@
 #    By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 08:54:44 by ubegona           #+#    #+#              #
-#    Updated: 2022/09/28 10:09:51 by ubegona          ###   ########.fr        #
+#    Updated: 2022/09/29 08:30:14 by ubegona          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OBJS = $(SRCS:.c=.o)
 SRCS = $(wildcard *.c)
-GCC = gcc -o get_next_line.a
+GCC = ar rcs gnl.a
 GCCS = gcc  -D BUFFER_SIZE=2  -c -Wall -Werror -Wextra
-NAME = get_next_line.a
+NAME = gnl.a
 
 all: $(NAME)
 
