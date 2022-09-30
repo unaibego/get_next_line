@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 08:47:46 by ubegona           #+#    #+#             */
-/*   Updated: 2022/09/29 12:31:33 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/09/30 12:43:28 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,68 +56,65 @@ char	*memory_allocate(char *str, int h, char *buff)
 	// printf(" j==|%d|\n", j);
 	dst = ft_memcpy(dst, str, h + 1);
 	free(str);
-	str = NULL;
 	str = malloc(h + j + 2);
 	str = ft_memcpy(str, dst, h + 1);
 	i++;
+	free(dst);
 	return (str);
 }
-int	newline(char *buff, char *str, int fd, int h, int i)
-{
-	int j;
-	
-	i = 0;
-	while (buff[i] != '\n' && buff[i])
-	{
-		str[h] = buff[i];
-		i++;
-		h++;
-		if (!buff[i])
-		{
-			j = read(fd, buff, BUFFER_SIZE);
-			if (j <= 0)
-				return (- 1);
-			str = memory_allocate(str, h, buff);
-			buff[BUFFER_SIZE] = '\0';
-			i = 0;
-		}
-	}
-	str[h] = buff[i];
-	str[h + 1] = '\0';
-	return (i);
-}
+
 char	*save_str(char *buff, char *str, int fd)
 {
 	int		h;
 	static int		i = 0;
-	int j;
+	static int j =1;
 	
 	h = 0;
-	while (buff[i] && buff[i] != '\n')
+	
+	if (j <= 0) //ez badago buff-k free egin delako jarraian NULL itzultzea
+	{
+		free(str);
+		return(NULL);
+	}
+	while (buff[i] && buff[i] != '\n' ) // mantendu den buff-aren amaiera str barruan sartzen duen funtzioa
 	{
 		str[h] = buff[i];
 		i++;
 		h++;
+		str[h] = '\0';
+		
 	}
-	if (buff[i] != '\n')
+	
+	if (buff[i] != '\n' && str[h] != '\0') // str baldintza hori kentzen baduzu aurreko gauza pilobat konpontzen dira, hau hasieran neukan baina orain nire logikarekin ez du ezertarako balio
 	{
 		j = read(fd, buff, BUFFER_SIZE);
 		if (j <= 0)
 		{
 			free(buff);
-			buff = NULL;
+			free(str);
 			return (NULL);
 		}
 		buff[j] = '\0';
 		str = memory_allocate(str, h, buff);
-		
-		
+		i=0;
 	}
-	i=0;
-	while (buff[i] != '\n')
+	if (!buff[i]) // justo ez bada existitzen 2. funtziotik atera delako hau egin behar zaio funtzio orokorrean sartu baino lehen (FO-ean i++ egiten du !buff[i] konprobatu baino lehen)
+	{
+		j = read(fd, buff, BUFFER_SIZE);
+		if (j <= 0)
+		{
+			str[h] = '\0';
+			free(buff);
+			return (str);
+		}
+		buff[j] = '\0';
+		str = memory_allocate(str, h, buff);
+		i = 0;
+	}
+	
+	while (buff[i] != '\n') // hau originala da bufferra handitzen duena eta str-n sartu \n aurkitu arte
 	{
 		str[h] = buff[i];
-		
 		i++;
 		h++;
 		if (!buff[i])
@@ -127,25 +124,18 @@ char	*save_str(char *buff, char *str, int fd)
 			{
 				str[h] = '\0';
 				free(buff);
-				buff = NULL;
-				// str[h + 1] = '\0';
-				// printf("  buff==|%s|   str=|%s|\n", buff, str);
 				return (str);
 			}
 			buff[j] = '\0';
 			str = memory_allocate(str, h, buff);
 			i = 0;
 		}
-		
 	}
-	str[h] = buff[i];
+	str[h] = '\n';
 	str[h + 1] = '\0';
-	
-	// i = newline(buff, str, fd, h, i);
-	// printf("%s\n",str);
-	// if (i == -1)
-	// 	return(NULL);
 	i++;
+	
+	
 	return (str);
 }
 char	*get_next_line(int fd)
@@ -153,65 +143,40 @@ char	*get_next_line(int fd)
 	static char		*buff;
 	static int		line = 0;
 	char			*str;
-	// int		h;
-	// static int		i = 0;
-	
-	// h = 0;
+
 	if (line == 0)
 	{
 		buff = malloc (BUFFER_SIZE + 1);
 		buff[0] = '\0';
 	}
 	str = malloc (BUFFER_SIZE + 1);
-	// while (buff[i] && buff[i] != '\n')
-	// {
-	// 	printf("agur");
-
-	// 	str[h] = buff[i];
-	// 	i++;
-	// 	h++;
-	// }
-	// if (buff[i] != '\n')
-	// {
-	// 	read(fd, buff, BUFFER_SIZE);
-	// 	str = memory_allocate(str, h);
-	// 	buff[BUFFER_SIZE] = '\0';
-	// 	i = 0;
-	// }
-	// while (buff[i] != '\n' && buff[i])
-	// {
-	// 	printf("%s", );
-
-	// 	str[h] = buff[i];
-	// 	i++;
-	// 	h++;
-	// 	if (!buff[i])
-	// 	{
-	// 		read(fd, buff, BUFFER_SIZE);
-	// 		str = memory_allocate(str, h);
-	// 		buff[BUFFER_SIZE] = '\0';
-	// 		i = 0;
-	// 	}
-	// }
-	// str[h] = buff[i];
-	// str[h + 1] = '\0';
-	// i++;
 	str = save_str(buff, str, fd);
 	line++;
+	if (!str)
+	{
+		free(str);
+		str = NULL;
+	}
+		
 	return (str);
 }
 
-int main()
-{
-	int	p;
+// int main()
+// {
+// 	int	p;
 
-	p = open("1char.txt", O_RDONLY);
-	printf("lehenengoa %s", get_next_line(p));
-	printf("bigarrena %s", get_next_line(p));
-	printf("hirugarrena %s", get_next_line(p));
-	printf("laugarrena %s", get_next_line(p));
-	printf("bostgarrena %s", get_next_line(p));
-	printf("seigarrena %s", get_next_line(p));
-	printf("zazpigarrena %s", get_next_line(p));
-	printf("zortzigarrena %s", get_next_line(p));
-}
+// 	p = open("variable_nls.txt", O_RDONLY);
+// 	printf("lehenengoa %s", get_next_line(p));
+// 	printf("bigarrena %s", get_next_line(p));
+// 	printf("hirugarrena %s", get_next_line(p));
+// 	printf("laugarrena %s", get_next_line(p));
+// 	printf("bostgarrena %s", get_next_line(p));
+// 	printf("seigarrena %s", get_next_line(p));
+// 	printf("zazpigarrena %s", get_next_line(p));
+// 	printf("zortzigarrena %s", get_next_line(p));
+// 	printf("bederatzi %s", get_next_line(p));
+// 	printf("hamar %s", get_next_line(p));
+// 	printf("hamaika %s", get_next_line(p));
+// 	printf("hamabi %s", get_next_line(p));
+// 	printf("hamahiru %s", get_next_line(p));
+// }
