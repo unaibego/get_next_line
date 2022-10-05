@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:12:11 by ubegona           #+#    #+#             */
-/*   Updated: 2022/09/29 08:30:44 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/10/05 12:53:22 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,17 @@
 # include "unistd.h"
 # include "stdlib.h"
 
-char	*get_next_line(int fd);
+typedef struct s_list
+{
+	char			*buff;
+	char			*str;
+	int				i;
+	int				j;
+	int				h;
+}					t_list;
 
+char	*get_next_line(int fd);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif
