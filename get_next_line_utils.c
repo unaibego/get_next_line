@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:13:30 by ubegona           #+#    #+#             */
-/*   Updated: 2022/10/05 12:51:22 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/10/06 10:33:44 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dst);
+}
+
+t_list	ft_lstnew(char *buff, char *str, int i, int j)
+{
+	t_list	primerelemento;
+
+	primerelemento.buff = buff;
+	primerelemento.str = str;
+	primerelemento.i = i;
+	primerelemento.j = j;
+	return (primerelemento);
 }

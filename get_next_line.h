@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:12:11 by ubegona           #+#    #+#             */
-/*   Updated: 2022/10/05 12:53:22 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/10/06 10:35:09 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ typedef struct s_list
 char	*get_next_line(int fd);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
-
+t_list	ft_lstnew(char *buff, char *str, int i, int j);
 #endif

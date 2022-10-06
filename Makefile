@@ -6,14 +6,14 @@
 #    By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 08:54:44 by ubegona           #+#    #+#              #
-#    Updated: 2022/09/29 08:30:14 by ubegona          ###   ########.fr        #
+#    Updated: 2022/10/06 10:19:13 by ubegona          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OBJS = $(SRCS:.c=.o)
 SRCS = $(wildcard *.c)
 GCC = ar rcs gnl.a
-GCCS = gcc  -D BUFFER_SIZE=2  -c -Wall -Werror -Wextra
+GCCS = gcc  -D BUFFER_SIZE=2  -c -Wall -Werror -Wextra -fsanitize=address -g3
 NAME = gnl.a
 
 all: $(NAME)
