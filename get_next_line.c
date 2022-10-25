@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 08:47:46 by ubegona           #+#    #+#             */
-/*   Updated: 2022/10/06 12:24:08 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/10/12 12:39:41 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,22 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-// int main(void)
-// {
-// 	int	p;
+int main(void)
+{
+	int	p;
 
-// 	p = open("empty", O_RDONLY);
-// 	printf("lehenengoa %s", get_next_line(p));
-// 	printf("bigarrena %s", get_next_line(p));
-// 	printf("hirugarrena %s", get_next_line(p));
-// 	printf("laugarrena %s", get_next_line(p));
-// 	// printf("bostgarrena %s", get_next_line(p));
-// 	// printf("seigarrena %s", get_next_line(p));
-// 	// printf("zazpigarrena %s", get_next_line(p));
-// 	// printf("zortzigarrena %s", get_next_line(p));
-// 	// printf("bederatzi %s", get_next_line(p));
-// 	// printf("hamar %s", get_next_line(p));
-// 	// printf("hamaika %s", get_next_line(p));
-// 	// printf("hamabi %s", get_next_line(p));
-// 	// printf("hamahiru %s", get_next_line(p));
-// }
+	p = open("empty", O_RDONLY);
+	printf("lehenengoa %s", get_next_line(p));
+	printf("bigarrena %s", get_next_line(p));
+	printf("hirugarrena %s", get_next_line(p));
+	printf("laugarrena %s", get_next_line(p));
+	// printf("bostgarrena %s", get_next_line(p));
+	// printf("seigarrena %s", get_next_line(p));
+	// printf("zazpigarrena %s", get_next_line(p));
+	// printf("zortzigarrena %s", get_next_line(p));
+	// printf("bederatzi %s", get_next_line(p));
+	// printf("hamar %s", get_next_line(p));
+	// printf("hamaika %s", get_next_line(p));
+	// printf("hamabi %s", get_next_line(p));
+	// printf("hamahiru %s", get_next_line(p));
+}
